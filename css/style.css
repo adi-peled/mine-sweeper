@@ -1,0 +1,39 @@
+
+
+
+
+
+.game-board{
+font-size: 30px;
+margin: auto;
+margin-top: 150px;
+}
+td,tr{
+height:30px;
+width: 30px;
+}
+.header{
+text-align: center;
+background-color: green;
+font-size: 45px;
+}
+button{
+
+font-size: 35px;
+color: green;
+background-color: greenyellow;
+
+}
+
+.timer{
+    text-align: center;
+    font-size: 45px;
+}
+
+
+.winOrLose{
+text-align: center;
+    background-color:red;
+    font-size: 50px;
+
+}
