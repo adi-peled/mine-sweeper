@@ -1,1 +1,1 @@
-# mines-weeper-adi
+# mine-sweeper-adi
