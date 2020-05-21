@@ -107,7 +107,13 @@ var gIntervalId
 var countClick = 0
 function cellClicked(cell, i, j) {
 
+
+
+
     if (gGame.isOn === false) return
+    if (gBoard[i][j].isMarked === true) return
+
+
     if (gBoard[i][j].isMine === false) {
         cell.style.backgroundColor = 'blue'
     }
