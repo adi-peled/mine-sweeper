@@ -106,10 +106,6 @@ function setMinesNegsCount(cellI, cellJ, board) {
 var gIntervalId
 var countClick = 0
 function cellClicked(cell, i, j) {
-
-
-
-
     if (gGame.isOn === false) return
     if (gBoard[i][j].isMarked === true) return
 
@@ -203,7 +199,9 @@ function gameOver(board) {
 function putFlag(cell, i, j) {
 
     if (gGame.isOn === false) { return }
+    console.log(gBoard[i][j].isShown)
 
+    if (gBoard[i][j].isShown === true) { return }
     gGame.markedCount = 0
     if (cell.innerText === FLAG) {
         cell.innerText = ''
