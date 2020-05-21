@@ -8,25 +8,23 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body onload="init(4,2)">
     <h1 class=" header"> Mines Weeper </h1>
-    <h1 class="winOrLose"> </h1>
-    <h2 class="timer"> your time: </h2>
+    <div onclick="init(4,2)" class="smile"> </div>
+    <h2 class="wrong"> </h2>
+    <h2 class="lives"> lives: </h2>
+    <div class="timer"> your time: </div>
+
+
+    <button class="easy" onclick="init(4,2)"> Easy </button>
+    <button class="medium" onclick="init(8,12)"> Medium </button>
+    <button class="hard" onclick="init(12,30)"> Expert </button>
+    <button class="safeClick" onclick="showSafeClick()"> Safe Click </button>
     <table border="1" class="game-board">
-
-
-
-        <div> </div>
-
     </table>
-
-
-    
-    <button class="easy" onclick="init(4,2)"> easy </button>
-    <button class="medium" onclick="init(8,12)"> medium </button>
-    <button class="hard" onclick="init(12,30)"> hard </button>
-
-
+    <h1 class="winOrLose"> </h1>
+    <h2> best time: </h2>
+    <h2 class="bestTime"></h2>
     <script src="js/app.js"></script>
 </body>
 

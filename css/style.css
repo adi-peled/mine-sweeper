@@ -1,39 +1,68 @@
 
 
+*{
+    margin: auto;
+    }
 
 
 
 .game-board{
-font-size: 30px;
+font-size: 25px;
 margin: auto;
-margin-top: 150px;
 }
 td,tr{
 height:30px;
 width: 30px;
+max-width: 30px;
+max-height: 30px;
+background-color: lightblue;
 }
+td,tr:hover{
+cursor: pointer;
+}
+
 .header{
 text-align: center;
 background-color: green;
-font-size: 45px;
+font-size: 30px;
+}
+.lives{
+text-align: center;
+background-color: aqua;
+padding: 5px;
+font-size: 25px
 }
 button{
-
-font-size: 35px;
+    margin: 5px;
+font-size: 25px;
 color: green;
 background-color: greenyellow;
-
 }
-
+button:hover{
+background-color: rgb(195, 114, 114);
+cursor: pointer;
+}
 .timer{
     text-align: center;
-    font-size: 45px;
+    font-size: 25px;
 }
-
-
 .winOrLose{
 text-align: center;
     background-color:red;
     font-size: 50px;
+}
+.smile{
+text-align: center;
+font-size: 35px;
+}
+.smile:hover{
+    cursor: pointer;
+
+
+}
+.wrong{
+padding: 5px;
+
+text-align: center;
 
 }
