@@ -108,22 +108,22 @@ var countClick = 0
 function cellClicked(cell, i, j) {
     if (gGame.isOn === false) return
     if (gBoard[i][j].isMarked === true) return
-
-
+    if (gBoard[i][j].isShown === true) return
     if (gBoard[i][j].isMine === false) {
+
         cell.style.backgroundColor = 'blue'
+        if (gBoard[i][j].isShown === true) return
+        gBoard[i][j].isShown = true
     }
     var timer = 0
     countClick++
     if (countClick === 1) {
         gIntervalId = setInterval(function () {
-            timer += 0.078
+            timer += 0.082
             document.querySelector('.timer').innerText = 'timer: ' + timer.toFixed(3)
-        }, 78);
+        }, 82);
 
     }
-
-    if (gBoard[i][j].isShown === true) { return }
     if (gBoard[i][j].isMine === true) {
         gCountLives--
         document.querySelector('.lives').innerText = 'lives :'
@@ -145,8 +145,8 @@ function cellClicked(cell, i, j) {
     } else {
         checkMines(cell, i, j)
         cell.innerText = gBoard[i][j].minesAroundCount
+
     }
-    console.log(timer)
     win()
 }
 function checkMines(cell, cellI, cellJ) {
@@ -158,23 +158,11 @@ function checkMines(cell, cellI, cellJ) {
             if (j < 0 || j >= gBoard[i].length) continue;
             if (i === cellI && j === cellJ) continue;
             var neigCell = document.querySelector(`.i-${i}-j-${j}`)
-            if (gBoard[cellI][cellJ].isMine === true) {
-                return
-            } else if (gBoard[i][j].isMine === true) {
-                continue
-            } else {
-
-                if (gBoard[i][j].isShown === true) {
-                    return
-                } else {
-                    gBoard[i][j].isShown = true
-                    gCountShow++
-                }
-                neigCell.innerText = gBoard[i][j].minesAroundCount
-                if (neigCell.innerText === '0') neigCell.innerText = ' '
-            }
-            if (gBoard[i][j].isShown === true)
-                document.querySelector(`.i-${i}-j-${j}`).style.backgroundColor = 'blue'
+            if (gBoard[cellI][cellJ].minesAroundCount !== 0) return
+            document.querySelector(`.i-${i}-j-${j}`).style.backgroundColor = 'blue'
+            neigCell.innerText = gBoard[i][j].minesAroundCount
+            if (neigCell.innerText === '0') { neigCell.innerText = ' ' }
+            cellClicked(neigCell, i, j)
         }
     }
 }
@@ -222,7 +210,15 @@ function putFlag(cell, i, j) {
 }
 localStorage.setItem('best time', Infinity)
 function win() {
-    if (gCountShow === gGame.shownCount && gCountMines === gGame.markedCount) {
+    gGame.shownCount = 0
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard.length; j++) {
+            console.log(gBoard[i][j])
+            if (gBoard[i][j].isShown) gGame.shownCount++
+        }
+    }
+    console.log(gBoard.length ** 2 - gCountMines, gGame.shownCount, gCountMines, gGame.markedCount)
+    if (gBoard.length ** 2 - gCountMines === gGame.shownCount && gCountMines === gGame.markedCount) {
         var cells = document.querySelectorAll('.cell')
         for (var i = 0; i < cells.length; i++) {
             cells[i].style.backgroundColor = 'blue'
