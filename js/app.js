@@ -1,11 +1,4 @@
-// // Step1 – the seed app: 
-// 1. Create a 4x4 gBoard Matrix containing Objects.
-// Place 2 mines manually when each cell’s isShown set to true.
-//  2. Present the mines using renderBoard() function. 
-// Step2 – counting neighbors: 
-// 1. Create setMinesNegsCount() and store the numbers (isShown is still true)
-// 2. Present the board with the neighbor count and the mines using renderBoard() function.
-// 3. Have a console.log presenting the board content – to help you with debugging 
+
 const MINE = '💣'
 const FLAG = '🚩'
 var smile;
@@ -110,7 +103,6 @@ function cellClicked(cell, i, j) {
     if (gBoard[i][j].isMarked === true) return
     if (gBoard[i][j].isShown === true) return
     if (gBoard[i][j].isMine === false) {
-
         cell.style.backgroundColor = 'blue'
         if (gBoard[i][j].isShown === true) return
         gBoard[i][j].isShown = true
@@ -135,7 +127,7 @@ function cellClicked(cell, i, j) {
         }, 1000);
         if (gCountLives === 0) {
             cell.innerText = MINE
-            gameOver()
+            gameOver(gBoard)
         } else {
             updateLives(gCountLives)
         }
@@ -173,12 +165,17 @@ function gameOver(board) {
     for (var i = 0; i < board.length; i++) {
         for (var j = 0; j < board[i].length; j++) {
             if (gBoard[i][j].isMine === true) {
-
                 var elTd = document.querySelector(`.i-${i}-j-${j}`)
-
                 elTd.innerText = MINE
                 elTd.style.backgroundColor = 'red'
             }
+
+            if (gBoard[i][j].isMarked && !gBoard[i][j].isMine) {
+                var wrongFlag = document.querySelector(`.i-${i}-j-${j}`)
+                wrongFlag.style.backgroundColor = 'pink'     // player marked the wrong cell 
+            }
+
+
         }
     }
     smile = '😵'
@@ -186,10 +183,8 @@ function gameOver(board) {
 }
 function putFlag(cell, i, j) {
 
-    if (gGame.isOn === false) { return }
-    console.log(gBoard[i][j].isShown)
-
-    if (gBoard[i][j].isShown === true) { return }
+    if (gGame.isOn === false) return
+    if (gBoard[i][j].isShown === true) return
     gGame.markedCount = 0
     if (cell.innerText === FLAG) {
         cell.innerText = ''
@@ -213,11 +208,9 @@ function win() {
     gGame.shownCount = 0
     for (var i = 0; i < gBoard.length; i++) {
         for (var j = 0; j < gBoard.length; j++) {
-            console.log(gBoard[i][j])
             if (gBoard[i][j].isShown) gGame.shownCount++
         }
     }
-    console.log(gBoard.length ** 2 - gCountMines, gGame.shownCount, gCountMines, gGame.markedCount)
     if (gBoard.length ** 2 - gCountMines === gGame.shownCount && gCountMines === gGame.markedCount) {
         var cells = document.querySelectorAll('.cell')
         for (var i = 0; i < cells.length; i++) {
@@ -231,8 +224,6 @@ function win() {
         var bestTimeStr = document.querySelector('.timer').innerText
         var bestTime = bestTimeStr.split(':')
         var bestTimeNum = bestTime[1]
-        console.log(bestTimeNum)
-        console.log('local storage:', localStorage.getItem('best time'))
         if (localStorage.getItem('best time') > bestTimeNum) {
             localStorage.setItem('best time', bestTimeNum);
             document.querySelector('.bestTime').innerText = localStorage.getItem('best time', bestTimeNum);
